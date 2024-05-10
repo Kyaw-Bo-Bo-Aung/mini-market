@@ -4,7 +4,6 @@ const Search = ({ value, onSearch }) => {
   const [state, setState] = useState(value);
 
   const handleOnClick = (state) => {
-    console.log(state);
     onSearch(state);
   }
 

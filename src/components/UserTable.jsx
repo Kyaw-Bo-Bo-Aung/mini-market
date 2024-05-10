@@ -3,14 +3,14 @@ import Table from "./common/Table/Table";
 import _ from "lodash";
 import Search from "./common/Pagination/Search";
 import PageSizeDropdown from "./common/Pagination/PageSizeDropdown";
+import FilterBar from "./common/Pagination/FilterBar";
 
-const UserTable = ({ users, options, selectedPageSize, onSizeChange }) => {
+const UserTable = ({ users, options, selectedPageSize, onSizeChange, searchQuery }) => {
   const [searchUsers, setSearchUsers] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     setSearchUsers(users);
-    console.log("updated?");
   });
   const columns = [
     { path: "firstName", label: "FIRST NAME" },
@@ -24,9 +24,11 @@ const UserTable = ({ users, options, selectedPageSize, onSizeChange }) => {
     { path: "eyeColor", label: "EYECOLOR" },
   ];
 
+  const paths = _.map(columns, "path");
+
   const searchUser = (value) => {
     return users.filter((user) => {
-      let a = _.pick(user, _.map(columns, "path"));
+      let a = _.pick(user, paths);
       return Object.values(a).some((field) => {
         return field.toString().toLowerCase().includes(value.toLowerCase());
       });
@@ -39,6 +41,10 @@ const UserTable = ({ users, options, selectedPageSize, onSizeChange }) => {
     setSearch(value);
   };
 
+  const handleSearch = (value) => {
+    searchQuery(value);
+  }
+
   return (
     <>
       <PageSizeDropdown
@@ -47,6 +53,7 @@ const UserTable = ({ users, options, selectedPageSize, onSizeChange }) => {
         onSizeChange={onSizeChange}
       />
       <Search value="" onSearch={handleSearchButtonClick} />
+      <FilterBar fields={paths} onSearch={handleSearch} />
       <Table
         columns={columns}
         data={computedUsers}
