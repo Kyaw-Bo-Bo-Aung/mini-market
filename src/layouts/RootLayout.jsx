@@ -1,7 +1,17 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import { UserContext } from "../context/UserProvider";
+import { useContext, useEffect } from "react";
+import useFetchData from "../hooks/useFetchData";
 
-export default function RootLayout() {
+const RootLayout = () => {
+  const { handleUsers } = useContext(UserContext);
+  const {data} = useFetchData('https://dummyjson.com/users');
+  
+  useEffect(() => {
+    handleUsers(data);
+  }, [data])
+
   return (
     <>
       <NavBar />
@@ -9,3 +19,5 @@ export default function RootLayout() {
     </>
   );
 }
+
+export default RootLayout;

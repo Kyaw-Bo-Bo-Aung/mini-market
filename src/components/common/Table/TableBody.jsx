@@ -5,9 +5,8 @@ const TableBody = ({ data, columns }) => {
   const createKey = (item, column) => {
     return item.id + (column.path || column.key);
   };
-  console.log(data);
+  
   if(data.length == 0) {
-    console.log("in")
     return (
       <tbody>
         <tr>
