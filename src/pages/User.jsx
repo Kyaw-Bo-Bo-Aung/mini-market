@@ -7,13 +7,10 @@ import _ from "lodash";
 const User = () => {
   // states
   const [state, setState] = useState({
-    users: [],
     currentPage: 1,
     pageSizeOption: [5, 10, 20, 50],
     pageSize: 5,
     search: null,
-    selectedGenre: null,
-    sortColumn: { path: "title", order: "asc" },
   });
 
   // fetching data
@@ -46,9 +43,8 @@ const User = () => {
   if (!data) return "loading";
 
   let { users, total, skip, limit } = data;
-  console.log(limit);
   return (
-    <>
+    <main>
       <h1 className="neutra">User</h1>
       {users && (
         <UserTable
@@ -67,7 +63,7 @@ const User = () => {
           onPageChange={handlePageChange}
         />
       )}
-    </>
+    </main>
   );
 };
 

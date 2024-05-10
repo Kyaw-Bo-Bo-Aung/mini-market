@@ -15,7 +15,7 @@ const RootLayout = () => {
   return (
     <>
       <NavBar />
-      <Outlet />
+      <Outlet className="container" />
     </>
   );
 }

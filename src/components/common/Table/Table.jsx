@@ -4,6 +4,8 @@ import TableBody from "./TableBody";
 import "./Table.css";
 
 const Table = ({ columns, data }) => {
+  
+
   return (
     <div className="table-container">
       <table className="table">
