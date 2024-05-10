@@ -3,6 +3,7 @@ import useFetchData from "../hooks/useFetchData";
 import ProductTable from "../components/ProductTable";
 import Pagination from "../components/common/Pagination/Pagination";
 import _ from "lodash";
+import Loading from "../components/common/Loading";
 
 const Product = () => {
   // states
@@ -17,8 +18,6 @@ const Product = () => {
   const generateURL = (pageSize, skip, search) => {
     const query = search == "All" ? false : search;
     if(query) {
-      console.log(query);
-      // const queryString = _.map(search, (value, key) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');    
       return `https://dummyjson.com/products/category/${query}`;
     }
     return `https://dummyjson.com/products?limit=${pageSize}&skip=${skip}`;
@@ -26,7 +25,6 @@ const Product = () => {
 
   const { data, loading, error, fetchData } = useFetchData(
     generateURL(state.pageSize, (state.currentPage - 1) * state.pageSize, state.search)
-    // `https://dummyjson.com/products`
   );
 
   // event handlers
@@ -42,7 +40,7 @@ const Product = () => {
     setState({...state, search: value});
   }
 
-  if (!data) return "loading";
+  if (!data) return <Loading />;
 
   let { products, total, skip, limit } = data;
 

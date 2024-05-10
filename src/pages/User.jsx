@@ -3,6 +3,7 @@ import useFetchData from "../hooks/useFetchData";
 import UserTable from "../components/UserTable";
 import Pagination from "../components/common/Pagination/Pagination";
 import _ from "lodash";
+import Loading from "../components/common/Loading";
 
 const User = () => {
   // states
@@ -40,7 +41,7 @@ const User = () => {
     setState({...state, search: query});
   }
 
-  if (!data) return "loading";
+  if (!data) return <Loading />;
 
   let { users, total, skip, limit } = data;
   return (
