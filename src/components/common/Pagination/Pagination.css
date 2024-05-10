@@ -22,7 +22,8 @@
 
 .page-item.active {
   color: var(--color-black);
-  transform: translateY(-1rem);
+  background-color: var(--color-yellow);
+  border-radius: 1rem;
 }
 
 .select-container {
