@@ -34,5 +34,5 @@ npm run start
 - Filter and search users and products according to the provided criteria.
 
 <div style="display: flex;">
-    <img src="./public/assets/images/users_list.png" alt="User Page photo" width="200">
+    <img src="./public/assets/images/users_list.png" alt="User Page photo" width="500">
 </div>
