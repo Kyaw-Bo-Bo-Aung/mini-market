@@ -28,6 +28,52 @@
   width: 100%;
 }
 
+.filter-bar button {
+  cursor: pointer;
+  transition: all 0.5s;
+  background-color: var(--color-white);
+  border-color: var(--color-grey); 
+  border-style: solid;
+  padding: 0.5rem 1rem;
+  margin-right: 0.45rem;
+  border-radius: 0.4rem;
+}
+
+.filter-bar button.active {
+  background-color: var(--color-yellow);
+} 
+
+.search-bar input, .search-bar button{
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.search-bar button {
+  cursor: pointer;
+  transition: all 0.5s;
+  background-color: var(--color-white);
+  border-color: var(--color-grey); 
+  border-radius: 0.4rem;
+  border-left: 0;
+}
+
+.table-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-filter {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-bar {
+  align-items: center;
+  display: flex;
+}
 @media screen and (max-width: 600px) {
   .table-container {
     overflow-x: auto;

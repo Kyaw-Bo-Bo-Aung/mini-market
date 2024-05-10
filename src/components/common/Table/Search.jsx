@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
 const Search = ({ value, onSearch }) => {
@@ -8,7 +9,7 @@ const Search = ({ value, onSearch }) => {
   }
 
   return (
-    <div>
+    <div className='search-bar'>
       <input
         type="text"
         value={state}
