@@ -4,8 +4,10 @@ import UserTable from "../components/UserTable";
 import Pagination from "../components/common/Pagination/Pagination";
 import _ from "lodash";
 import Loading from "../components/common/Loading";
+import { UserContext } from "../context/UserProvider";
 
 const User = () => {
+  const { users, handleUsers } = useContext(UserContext);
   // states
   const [state, setState] = useState({
     currentPage: 1,
@@ -17,17 +19,31 @@ const User = () => {
   // fetching data
   const generateURL = (pageSize, skip, search) => {
     const isValidQuery = _.every(search, (value, key) => key && value);
-    if(search && isValidQuery) {
-      const queryString = _.map(search, (value, key) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');    
+    if (search && isValidQuery) {
+      const queryString = _.map(
+        search,
+        (value, key) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      ).join("&");
       return `https://dummyjson.com/users/filter?${queryString}`;
     }
     return `https://dummyjson.com/users?limit=${pageSize}&skip=${skip}`;
   };
 
   const { data, loading, error, fetchData } = useFetchData(
-    generateURL(state.pageSize, (state.currentPage - 1) * state.pageSize, state.search)
+    generateURL(
+      state.pageSize,
+      (state.currentPage - 1) * state.pageSize,
+      state.search
+    )
   );
-  
+
+  useEffect(() => {
+    if (data){
+      handleUsers(data);
+    }
+  }, [data]);
+
   // event handlers
   const handlePageChange = (page) => {
     setState({ ...state, currentPage: page });
@@ -38,25 +54,26 @@ const User = () => {
   };
 
   const handleQuery = (query) => {
-    setState({...state, search: query});
-  }
+    setState({ ...state, search: query });
+  };
 
-  if (!data) return <Loading />;
+  if (!users) return <Loading />;
 
-  let { users, total, skip, limit } = data;
+  let { users: response, total, skip, limit } = users;
+
   return (
     <main>
       <h1 className="neutra">User</h1>
-      {users && (
+      {response && (
         <UserTable
           options={state.pageSizeOption}
           selectedPageSize={state.pageSize}
           searchQuery={handleQuery}
           onSizeChange={handlePageSizeChange}
-          users={users}
+          users={response}
         />
       )}
-      {data && (
+      {users && (
         <Pagination
           itemsCount={total}
           pageSize={limit}

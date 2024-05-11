@@ -44,10 +44,8 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <li className={i === currentPage ? "page-item active" : "page-item"}>
+        <li key={i} className={i === currentPage ? "page-item active" : "page-item"}>
         <a className="page-link"
-        
-          key={i}
           onClick={() => onPageChange(i)}
         >
           {i}

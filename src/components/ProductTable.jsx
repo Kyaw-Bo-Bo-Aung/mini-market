@@ -17,7 +17,7 @@ const ProductTable = ({
 
   useEffect(() => {
     setSearchProducts(products);
-  });
+  }, [products]);
   const columns = [
     { path: "title", label: "TITLE", visible: true },
     { path: "category", label: "CATEGORY", visible: true },
@@ -33,6 +33,7 @@ const ProductTable = ({
   const paths = _.map(columns, "path");
 
   const searchProduct = (value) => {
+    console.log(searchProducts);
     return searchProducts.filter((product) => {
       let a = _.pick(product, paths);
       return Object.values(a).some((field) => {
@@ -44,7 +45,6 @@ const ProductTable = ({
   const computedProducts = searchProduct(search);
 
   const handleSearchButtonClick = (value) => {
-    console.log(value);
     setSearch(value);
   };
 
@@ -59,8 +59,6 @@ const ProductTable = ({
           col.visible = !col.visible;
         return col;
       })
-      
-    console.log(filtercolumn);
   };
 
   return (
